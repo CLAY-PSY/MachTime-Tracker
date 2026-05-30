@@ -27,22 +27,27 @@ SOFTWARE.
 <meta charset="UTF-8" />
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  content="
+    width=device-width,
+    initial-scale=1,
+    maximum-scale=1,
+    viewport-fit=cover
+  "
 />
 <title>加工时间追踪</title>
 <style>
 :root {
   color-scheme: light dark;
   --bg-light: #f2f2f7;
-  --card-light: rgba(255,255,255,0.78);
+  --card-light: rgba(255,255,255,0.82);
   --border-light: rgba(0,0,0,0.08);
   --text-light: #1c1c1e;
-  --input-light: rgba(255,255,255,0.9);
+  --input-light: rgba(255,255,255,0.92);
   --bg-dark: #000000;
-  --card-dark: rgba(28,28,30,0.78);
+  --card-dark: rgba(28,28,30,0.82);
   --border-dark: rgba(255,255,255,0.08);
   --text-dark: #ffffff;
-  --input-dark: rgba(44,44,46,0.95);
+  --input-dark: rgba(44,44,46,0.96);
   --accent: #0a84ff;
 }
 * {
@@ -53,8 +58,7 @@ SOFTWARE.
 html,
 body {
   width: 100%;
-  height: 100%;
-  min-height: 100dvh;
+  height: 100dvh;
   overflow: hidden;
   font-family:
     -apple-system,
@@ -67,13 +71,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-body {
-  padding:
-    env(safe-area-inset-top)
-    env(safe-area-inset-right)
-    env(safe-area-inset-bottom)
-    env(safe-area-inset-left);
+  -webkit-text-size-adjust: 100%;
 }
 @media (prefers-color-scheme: dark) {
   html,
@@ -84,11 +82,14 @@ body {
 }
 .container {
   width: min(92vw, 1000px);
-  height: min(92dvh, 860px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(14px, 2vw, 32px);
+  max-height: calc(
+    100dvh -
+    env(safe-area-inset-top) -
+    env(safe-area-inset-bottom) -
+    20px
+  );
+  padding:
+    clamp(12px, 2vw, 28px);
   border-radius: 24px;
   background: var(--card-light);
   border:
@@ -100,40 +101,41 @@ body {
   box-shadow:
     0 8px 32px rgba(0,0,0,0.08);
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 @media (prefers-color-scheme: dark) {
   .container {
     background: var(--card-dark);
     border:
       1px solid var(--border-dark);
-    box-shadow:
-      0 8px 32px rgba(0,0,0,0.45);
   }
 }
 form {
   width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 1.4vw, 18px);
-  align-content: center;
+  gap:
+    clamp(10px, 1.2vw, 16px);
 }
 label {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  font-size: clamp(12px, 1.2vw, 14px);
+  font-size:
+    clamp(12px, 1vw, 15px);
   font-weight: 500;
 }
 input[type="text"],
 input[type="number"],
 input[type="datetime-local"] {
   width: 100%;
-  margin-top: 0.5rem;
-  height: clamp(42px, 5vh, 50px);
-  min-height: 42px;
-  padding: 0 0.9rem;
+  margin-top: 0.45rem;
+  height:
+    clamp(42px, 5vw, 48px);
+  min-height:
+    clamp(42px, 5vw, 48px);
+  padding: 0 0.8rem;
   border-radius: 14px;
   border:
     1px solid var(--border-light);
@@ -141,7 +143,8 @@ input[type="datetime-local"] {
     var(--input-light);
   color:
     var(--text-light);
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size:
+    clamp(14px, 1vw, 16px);
   appearance: none;
   -webkit-appearance: none;
 }
@@ -169,87 +172,71 @@ input[type="datetime-local"] {
   overflow: hidden;
 }
 input[type="datetime-local"]::-webkit-date-and-time-value {
-  min-height: 48px;
-  height: 48px;
+  min-height: inherit;
+  height: inherit;
   display: flex;
   align-items: center;
 }
 input[type="datetime-local"]::-webkit-datetime-edit {
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 100%;
 }
 .actions {
   grid-column: 1 / -1;
-  width: 100%;
   display: flex;
   flex-direction: row;
-  gap: clamp(10px, 1vw, 16px);
-  margin-top: 0.2rem;
+  gap:
+    clamp(8px, 1vw, 16px);
+  margin-top: 0.4rem;
 }
 .actions button {
   flex: 1;
   min-width: 0;
-  white-space: nowrap;
 }
 button {
-  height: clamp(44px, 5vh, 52px);
-  min-height: 44px;
+  height:
+    clamp(42px, 5vw, 50px);
   border-radius: 14px;
   border: none;
   background:
     rgba(10,132,255,0.12);
   color: inherit;
-  font-size: clamp(14px, 1.5vw, 16px);
+  font-size:
+    clamp(13px, 1vw, 16px);
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
 }
 button:active {
   transform: scale(0.98);
 }
-/* 小屏设备 */
-@media (max-width: 768px) {
+/* 小屏压缩 */
+@media (max-width: 430px) {
   .container {
     width: 96vw;
-    height: 96dvh;
-    padding: 14px;
+    padding: 12px;
   }
-  form {
-    gap: 10px;
-  }
-  label {
-    font-size: 13px;
-  }
-  input[type="text"],
-  input[type="number"],
-  input[type="datetime-local"] {
-    height: 42px;
-    min-height: 42px;
-    font-size: 16px;
-  }
-  button {
-    height: 44px;
-    font-size: 14px;
-  }
-}
-/* 超窄屏 */
-@media (max-width: 430px) {
   form {
     gap: 8px;
   }
   label {
     font-size: 12px;
   }
-  input[type="text"],
-  input[type="number"],
-  input[type="datetime-local"] {
-    height: 40px;
-    min-height: 40px;
-    padding: 0 0.7rem;
-  }
   button {
-    height: 42px;
     font-size: 13px;
+  }
+}
+/* 超矮屏适配 */
+@media (max-height: 760px) {
+  .container {
+    transform: scale(0.96);
+    transform-origin: center;
+  }
+}
+@media (max-height: 700px) {
+  .container {
+    transform: scale(0.92);
   }
 }
 </style>
@@ -259,68 +246,35 @@ button:active {
 <form id="procForm">
 <label>
 机台编号
-<input
-  type="text"
-  id="machine"
-  required
-/>
+<input type="text" id="machine" required />
 </label>
 <label>
 加工料号
-<input
-  type="text"
-  id="partNo"
-  required
-/>
+<input type="text" id="partNo" required />
 </label>
 <label>
 加工批号
-<input
-  type="text"
-  id="batchNo"
-  required
-/>
+<input type="text" id="batchNo" required />
 </label>
 <label>
 加工数量
-<input
-  type="number"
-  id="quantity"
-  min="1"
-  required
-/>
+<input type="number" id="quantity" min="1" required />
 </label>
 <label>
 正面开始
-<input
-  type="datetime-local"
-  id="frontStart"
-  required
-/>
+<input type="datetime-local" id="frontStart" required />
 </label>
 <label>
 正面结束
-<input
-  type="datetime-local"
-  id="frontEnd"
-  required
-/>
+<input type="datetime-local" id="frontEnd" required />
 </label>
 <label>
 反面开始
-<input
-  type="datetime-local"
-  id="backStart"
-  required
-/>
+<input type="datetime-local" id="backStart" required />
 </label>
 <label>
 反面结束
-<input
-  type="datetime-local"
-  id="backEnd"
-  required
-/>
+<input type="datetime-local" id="backEnd" required />
 </label>
 <div class="actions">
 <button
@@ -371,149 +325,126 @@ function isIOS() {
 }
 // 添加记录
 document
-  .getElementById('calcBtn')
-  .addEventListener('click', () => {
-    const machine =
-      machineInput.value.trim();
-    const partNo =
-      document
-        .getElementById('partNo')
-        .value
-        .trim();
-    const batchNo =
-      document
-        .getElementById('batchNo')
-        .value
-        .trim();
-    const qty =
-      Number(
-        document
-          .getElementById('quantity')
-          .value
-      );
-    if (
-      !machine ||
-      !partNo ||
-      !batchNo ||
-      !qty
-    ) {
-      alert(
-        '请填写机台、料号、批号和加工数量'
-      );
-      return;
-    }
-    const fSVal =
-      document.getElementById('frontStart').value;
-    const fEVal =
-      document.getElementById('frontEnd').value;
-    const bSVal =
-      document.getElementById('backStart').value;
-    const bEVal =
-      document.getElementById('backEnd').value;
-    let frontMs = 0;
-    let backMs = 0;
-    let latestEnd = null;
-    if (fSVal && fEVal) {
-      const fS = parseDate(fSVal);
-      const fE = parseDate(fEVal);
-      if (fE <= fS) {
-        alert(
-          '正面结束时间需晚于开始时间'
-        );
-        return;
-      }
-      frontMs = fE - fS;
-      latestEnd = fE;
-    }
-    if (bSVal && bEVal) {
-      const bS = parseDate(bSVal);
-      const bE = parseDate(bEVal);
-      if (bE <= bS) {
-        alert(
-          '反面结束时间需晚于开始时间'
-        );
-        return;
-      }
-      backMs = bE - bS;
-      latestEnd =
-        latestEnd
-        ? new Date(
-            Math.max(latestEnd, bE)
-          )
-        : bE;
-    }
-    if (!latestEnd) {
-      alert(
-        '请至少填写一面加工时间'
-      );
-      return;
-    }
-    const cycleTimeMs =
-      frontMs + backMs;
-    const loops =
-      Math.ceil(qty / 2);
-    const totalTimeMs =
-      cycleTimeMs * loops;
-    const offTime =
-      new Date(
-        latestEnd.getTime() +
-        totalTimeMs
-      );
-    window.records.push({
-      机台: machine,
-      料号: partNo,
-      批号: batchNo,
-      数量: qty,
-      循环次数: loops,
-      总时长:
-        formatDuration(totalTimeMs),
-      下机时间:
-        offTime.toLocaleString('zh-CN')
-    });
-    document
-      .getElementById('procForm')
-      .reset();
-    machineInput.focus();
-  });
-// 回车切换输入框
-const inputs =
-  Array.from(
-    document.querySelectorAll('input')
-  );
-inputs.forEach((input, index) => {
-  input.addEventListener(
-    'keydown',
-    (e) => {
-      if (e.key !== 'Enter') return;
-      e.preventDefault();
-      const next =
-        inputs[index + 1];
-      if (next) {
-        next.focus();
-      } else {
-        document
-          .getElementById('calcBtn')
-          .click();
-      }
-    }
-  );
+.getElementById('calcBtn')
+.addEventListener('click', () => {
+const machine =
+machineInput.value.trim();
+const partNo =
+document
+.getElementById('partNo')
+.value
+.trim();
+const batchNo =
+document
+.getElementById('batchNo')
+.value
+.trim();
+const qty =
+Number(
+document
+.getElementById('quantity')
+.value
+);
+if (
+!machine ||
+!partNo ||
+!batchNo ||
+!qty
+) {
+alert(
+'请填写机台、料号、批号和加工数量'
+);
+return;
+}
+const fSVal =
+document.getElementById('frontStart').value;
+const fEVal =
+document.getElementById('frontEnd').value;
+const bSVal =
+document.getElementById('backStart').value;
+const bEVal =
+document.getElementById('backEnd').value;
+let frontMs = 0;
+let backMs = 0;
+let latestEnd = null;
+if (fSVal && fEVal) {
+const fS = parseDate(fSVal);
+const fE = parseDate(fEVal);
+if (fE <= fS) {
+alert(
+'正面结束时间需晚于开始时间'
+);
+return;
+}
+frontMs = fE - fS;
+latestEnd = fE;
+}
+if (bSVal && bEVal) {
+const bS = parseDate(bSVal);
+const bE = parseDate(bEVal);
+if (bE <= bS) {
+alert(
+'反面结束时间需晚于开始时间'
+);
+return;
+}
+backMs = bE - bS;
+latestEnd =
+latestEnd
+? new Date(
+Math.max(latestEnd, bE)
+)
+: bE;
+}
+if (!latestEnd) {
+alert(
+'请至少填写一面加工时间'
+);
+return;
+}
+const cycleTimeMs =
+frontMs + backMs;
+const loops =
+Math.ceil(qty / 2);
+const totalTimeMs =
+cycleTimeMs * loops;
+const offTime =
+new Date(
+latestEnd.getTime() +
+totalTimeMs
+);
+window.records.push({
+机台: machine,
+料号: partNo,
+批号: batchNo,
+数量: qty,
+循环次数: loops,
+总时长:
+formatDuration(totalTimeMs),
+下机时间:
+offTime.toLocaleString('zh-CN')
+});
+document
+.getElementById('procForm')
+.reset();
+machineInput.focus();
 });
 // 管理记录
 document
-  .getElementById('manageBtn')
-  .addEventListener('click', () => {
-    const win =
-      window.open(
-        '',
-        '_blank',
-        'width=900,height=600'
-      );
-    if (!win) {
-      alert('浏览器拦截了弹窗');
-      return;
-    }
-    const html = [];
-    html.push(`
+.getElementById('manageBtn')
+.addEventListener('click', () => {
+const win =
+window.open(
+'',
+'_blank',
+'width=900,height=600'
+);
+if (!win) {
+alert('浏览器拦截了弹窗');
+return;
+}
+const html = [];
+html.push(`
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -524,7 +455,6 @@ body{
 font-family:-apple-system;
 padding:1rem;
 background:#f2f2f7;
-color:#000;
 }
 table{
 width:100%;
@@ -545,7 +475,6 @@ border:none;
 border-radius:8px;
 background:#ff3b30;
 color:white;
-cursor:pointer;
 }
 </style>
 </head>
@@ -601,87 +530,87 @@ render();
 </body>
 </html>
 `);
-    win.document.write(
-      html.join('')
-    );
-    win.document.close();
-  });
+win.document.write(
+html.join('')
+);
+win.document.close();
+});
 // 导出 CSV
 document
-  .getElementById('exportBtn')
-  .addEventListener('click', () => {
-    if (!window.records.length) {
-      alert('无可导出记录');
-      return;
-    }
-    try {
-      const headers = [
-        '机台',
-        '料号',
-        '批号',
-        '数量',
-        '循环次数',
-        '总时长',
-        '下机时间'
-      ];
-      const rows =
-        window.records.map(r => [
-          r['机台'],
-          r['料号'],
-          r['批号'],
-          r['数量'],
-          r['循环次数'],
-          r['总时长'],
-          r['下机时间']
-        ]);
-      let csv =
-        '\uFEFF' +
-        headers.join(',') + '\n';
-      rows.forEach(row => {
-        csv += row
-          .map(v =>
-            `"${String(v).replace(/"/g, '""')}"`
-          )
-          .join(',')
-          + '\n';
-      });
-      const blob =
-        new Blob(
-          [csv],
-          {
-            type:
-              'text/csv;charset=utf-8;'
-          }
-        );
-      const url =
-        URL.createObjectURL(blob);
-      if (isIOS()) {
-        window.open(
-          url,
-          '_blank'
-        );
-        return;
-      }
-      const link =
-        document.createElement('a');
-      link.href = url;
-      link.download =
-        '加工记录.csv';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 1000);
-    }
-    catch (err) {
-      alert(
-        '导出失败：' +
-        err.message
-      );
-      console.error(err);
-    }
-  });
+.getElementById('exportBtn')
+.addEventListener('click', () => {
+if (!window.records.length) {
+alert('无可导出记录');
+return;
+}
+try {
+const headers = [
+'机台',
+'料号',
+'批号',
+'数量',
+'循环次数',
+'总时长',
+'下机时间'
+];
+const rows =
+window.records.map(r => [
+r['机台'],
+r['料号'],
+r['批号'],
+r['数量'],
+r['循环次数'],
+r['总时长'],
+r['下机时间']
+]);
+let csv =
+'\uFEFF' +
+headers.join(',') + '\n';
+rows.forEach(row => {
+csv += row
+.map(v =>
+`"${String(v).replace(/"/g, '""')}"`
+)
+.join(',')
++ '\n';
+});
+const blob =
+new Blob(
+[csv],
+{
+type:
+'text/csv;charset=utf-8;'
+}
+);
+const url =
+URL.createObjectURL(blob);
+if (isIOS()) {
+window.open(
+url,
+'_blank'
+);
+return;
+}
+const link =
+document.createElement('a');
+link.href = url;
+link.download =
+'加工记录.csv';
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+setTimeout(() => {
+URL.revokeObjectURL(url);
+}, 1000);
+}
+catch (err) {
+alert(
+'导出失败：' +
+err.message
+);
+console.error(err);
+}
+});
 </script>
 </body>
 </html>
