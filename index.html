@@ -25,20 +25,15 @@ SOFTWARE.
 <html lang="zh-CN">
 
 <head>
-
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
-
   <title>加工时间追踪</title>
 
   <style>
-
     :root {
-
       color-scheme: light dark;
 
       --bg-light: #f2f2f7;
@@ -64,41 +59,28 @@ SOFTWARE.
 
     html,
     body {
-
       width: 100%;
-
       min-height: 100%;
-
       overflow-x: hidden;
-
       overflow-y: auto;
-
       -webkit-overflow-scrolling: touch;
-
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "SF Pro Display",
         "PingFang SC",
         sans-serif;
-
       background: var(--bg-light);
-
       color: var(--text-light);
-
       display: flex;
-
       justify-content: center;
-
       align-items: flex-start;
-
       transition:
         background 0.25s ease,
         color 0.25s ease;
     }
 
     body {
-
       padding:
         max(20px, env(safe-area-inset-top))
         0
@@ -106,117 +88,69 @@ SOFTWARE.
     }
 
     @media (prefers-color-scheme: dark) {
-
       html,
       body {
-
         background: var(--bg-dark);
-
         color: var(--text-dark);
       }
     }
 
     .container {
-
       width: 92%;
-
       max-width: 1000px;
-
       margin: 20px 0;
-
       padding: 2rem;
-
       border-radius: 24px;
-
       background: var(--card-light);
-
-      border:
-        1px solid var(--border-light);
-
-      backdrop-filter:
-        blur(30px) saturate(180%);
-
-      -webkit-backdrop-filter:
-        blur(30px) saturate(180%);
-
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.08);
-
+      border: 1px solid var(--border-light);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
       transition:
         background 0.25s ease,
         border-color 0.25s ease;
     }
 
     @media (prefers-color-scheme: dark) {
-
       .container {
-
         background: var(--card-dark);
-
-        border:
-          1px solid var(--border-dark);
-
-        box-shadow:
-          0 8px 32px rgba(0,0,0,0.45);
+        border: 1px solid var(--border-dark);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.45);
       }
     }
 
     .card {
-
       width: 100%;
     }
 
     form {
-
       display: grid;
-
-      grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
     }
 
     label {
-
       display: flex;
-
       flex-direction: column;
-
       font-size: 0.92rem;
-
       font-weight: 500;
     }
 
     input[type="text"],
     input[type="number"],
     input[type="datetime-local"] {
-
       width: 100%;
-
       margin-top: 0.5rem;
-
       height: 48px;
-
       min-height: 48px;
-
       padding: 0 0.9rem;
-
       border-radius: 14px;
-
-      border:
-        1px solid var(--border-light);
-
-      background:
-        var(--input-light);
-
-      color:
-        var(--text-light);
-
+      border: 1px solid var(--border-light);
+      background: var(--input-light);
+      color: var(--text-light);
       font-size: 16px;
-
       appearance: none;
       -webkit-appearance: none;
-
       transition:
         background 0.25s ease,
         border-color 0.25s ease,
@@ -224,333 +158,202 @@ SOFTWARE.
     }
 
     @media (prefers-color-scheme: dark) {
-
       input[type="text"],
       input[type="number"],
       input[type="datetime-local"] {
-
-        background:
-          var(--input-dark);
-
-        border:
-          1px solid var(--border-dark);
-
-        color:
-          var(--text-dark);
+        background: var(--input-dark);
+        border: 1px solid var(--border-dark);
+        color: var(--text-dark);
       }
     }
 
     input:focus {
-
       outline: none;
-
       border-color: var(--accent);
-
-      box-shadow:
-        0 0 0 3px rgba(10,132,255,0.25);
+      box-shadow: 0 0 0 3px rgba(10,132,255,0.25);
     }
 
-    /* iOS datetime 修复 */
-
     input[type="datetime-local"] {
-
       display: flex;
-
       align-items: center;
-
       overflow: hidden;
     }
 
     input[type="datetime-local"]::-webkit-date-and-time-value {
-
       min-height: 48px;
-
       height: 48px;
-
       display: flex;
-
       align-items: center;
-
       text-align: left;
     }
 
     input[type="datetime-local"]::-webkit-datetime-edit {
-
       display: flex;
-
       align-items: center;
-
       height: 48px;
-
       padding: 0;
     }
 
     input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-
       opacity: 0.9;
-
       cursor: pointer;
-
       margin: 0;
-
       padding: 0;
     }
 
     input[type="datetime-local"]::-webkit-inner-spin-button,
     input[type="datetime-local"]::-webkit-clear-button {
-
       display: none;
     }
 
     .actions {
-
       grid-column: 1 / -1;
-
       display: flex;
-
       justify-content: center;
-
       gap: 1rem;
-
       margin-top: 0.5rem;
     }
 
     button {
-
       flex: 1;
-
       min-height: 50px;
-
       border-radius: 14px;
-
       border: none;
-
-      background:
-        rgba(10,132,255,0.12);
-
-      color:
-        inherit;
-
+      background: rgba(10,132,255,0.12);
+      color: inherit;
       font-size: 0.96rem;
-
       font-weight: 600;
-
       cursor: pointer;
-
       transition:
         transform 0.15s ease,
         background 0.25s ease;
     }
 
     button:hover {
-
-      background:
-        rgba(10,132,255,0.18);
+      background: rgba(10,132,255,0.18);
     }
 
     button:active {
-
       transform: scale(0.98);
     }
 
     @media (prefers-color-scheme: dark) {
-
       button {
-
-        background:
-          rgba(10,132,255,0.18);
+        background: rgba(10,132,255,0.18);
       }
 
       button:hover {
-
-        background:
-          rgba(10,132,255,0.26);
+        background: rgba(10,132,255,0.26);
       }
     }
 
     @media (max-width: 600px) {
-
       .container {
-
         padding: 1.2rem;
       }
 
       form {
-
         grid-template-columns: 1fr;
       }
 
       .actions {
-
         flex-direction: column;
       }
     }
 
     @supports (-webkit-touch-callout: none) {
-
       html,
       body {
-
         min-height: -webkit-fill-available;
       }
     }
-
   </style>
-
 </head>
 
 <body>
-
   <div class="container">
-
     <div class="card">
-
       <form id="procForm">
-
         <label>
           机台编号
-          <input
-            type="text"
-            id="machine"
-            required
-          />
+          <input type="text" id="machine" required />
         </label>
 
         <label>
           加工料号
-          <input
-            type="text"
-            id="partNo"
-            required
-          />
+          <input type="text" id="partNo" required />
         </label>
 
         <label>
           加工批号
-          <input
-            type="text"
-            id="batchNo"
-            required
-          />
+          <input type="text" id="batchNo" required />
         </label>
 
         <label>
           加工数量
-          <input
-            type="number"
-            id="quantity"
-            min="1"
-            required
-          />
+          <input type="number" id="quantity" min="1" required />
         </label>
 
         <label>
           正面开始
-          <input
-            type="datetime-local"
-            id="frontStart"
-            required
-          />
+          <input type="datetime-local" id="frontStart" required />
         </label>
 
         <label>
           正面结束
-          <input
-            type="datetime-local"
-            id="frontEnd"
-            required
-          />
+          <input type="datetime-local" id="frontEnd" required />
         </label>
 
         <label>
           反面开始
-          <input
-            type="datetime-local"
-            id="backStart"
-            required
-          />
+          <input type="datetime-local" id="backStart" required />
         </label>
 
         <label>
           反面结束
-          <input
-            type="datetime-local"
-            id="backEnd"
-            required
-          />
+          <input type="datetime-local" id="backEnd" required />
         </label>
 
         <div class="actions">
-
-          <button
-            type="button"
-            id="calcBtn"
-          >
-            添加记录
-          </button>
-
-          <button
-            type="button"
-            id="manageBtn"
-          >
-            管理记录
-          </button>
-
-          <button
-            type="button"
-            id="exportBtn"
-          >
-            导出 Excel
-          </button>
-
+          <button type="button" id="calcBtn">添加记录</button>
+          <button type="button" id="manageBtn">管理记录</button>
+          <button type="button" id="exportBtn">导出 Excel</button>
         </div>
-
       </form>
-
     </div>
-
   </div>
 
   <script src="./lib/xlsx.full.min.js"></script>
-
   <script>
-
     window.records = [];
 
-    const machineInput =
-      document.getElementById('machine');
-
-    const MIME_XLSX =
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    const machineInput = document.getElementById('machine');
+    const MIME_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
     function isIOS() {
       return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     }
 
-    function addRecord() {
+    function parseDate(val) {
+      return new Date(val);
+    }
 
-      const machine =
-        machineInput.value.trim();
+    function formatDuration(ms) {
+      const totalMinutes = Math.round(ms / 60000);
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+      return `${hours}h${minutes}m`;
+    }
 
-      const partNo =
-        document.getElementById('partNo').value.trim();
+    document.getElementById('calcBtn').addEventListener('click', () => {
+      const machine = machineInput.value.trim();
+      const partNo = document.getElementById('partNo').value.trim();
+      const batchNo = document.getElementById('batchNo').value.trim();
+      const qty = Number(document.getElementById('quantity').value);
 
-      const batchNo =
-        document.getElementById('batchNo').value.trim();
-
-      const qty =
-        Number(document.getElementById('quantity').value);
-
-      if (
-        !machine ||
-        !partNo ||
-        !batchNo ||
-        !qty
-      ) {
-
+      if (!machine || !partNo || !batchNo || !qty) {
         alert('请填写机台、料号、批号和加工数量');
-
         return;
       }
 
@@ -564,12 +367,10 @@ SOFTWARE.
       let latestEnd = null;
 
       if (fSVal && fEVal) {
-
-        const fS = new Date(fSVal);
-        const fE = new Date(fEVal);
+        const fS = parseDate(fSVal);
+        const fE = parseDate(fEVal);
 
         if (fE <= fS) {
-
           alert('正面结束时间需晚于开始时间');
           return;
         }
@@ -579,26 +380,19 @@ SOFTWARE.
       }
 
       if (bSVal && bEVal) {
-
-        const bS = new Date(bSVal);
-        const bE = new Date(bEVal);
+        const bS = parseDate(bSVal);
+        const bE = parseDate(bEVal);
 
         if (bE <= bS) {
-
           alert('反面结束时间需晚于开始时间');
           return;
         }
 
         backMs = bE - bS;
-
-        latestEnd =
-          latestEnd
-            ? new Date(Math.max(latestEnd, bE))
-            : bE;
+        latestEnd = latestEnd ? new Date(Math.max(latestEnd, bE)) : bE;
       }
 
       if (!latestEnd) {
-
         alert('请至少填写一面加工时间');
         return;
       }
@@ -606,112 +400,66 @@ SOFTWARE.
       const cycleTimeMs = frontMs + backMs;
       const loops = Math.ceil(qty / 2);
       const totalTimeMs = cycleTimeMs * loops;
-
-      const offTime =
-        new Date(latestEnd.getTime() + totalTimeMs);
-
-      const totalMinutes = Math.round(totalTimeMs / 60000);
-      const hours = Math.floor(totalMinutes / 60);
-      const minutes = totalMinutes % 60;
+      const offTime = new Date(latestEnd.getTime() + totalTimeMs);
 
       window.records.push({
-
         机台: machine,
-
         料号: partNo,
-
         批号: batchNo,
-
         数量: qty,
-
         循环次数: loops,
-
-        总时长: `${hours}h${minutes}m`,
-
+        总时长: formatDuration(totalTimeMs),
         下机时间: offTime.toLocaleString('zh-CN')
-
       });
 
       document.getElementById('procForm').reset();
       machineInput.focus();
-    }
+    });
 
-    document
-      .getElementById('calcBtn')
-      .addEventListener('click', addRecord);
-
-    // 回车切换输入框
-
-    const inputs = Array.from(
-      document.querySelectorAll('input')
-    );
-
+    const inputs = Array.from(document.querySelectorAll('input'));
     inputs.forEach((input, index) => {
-
       input.addEventListener('keydown', (e) => {
-
         if (e.key !== 'Enter') return;
-
         e.preventDefault();
 
         const next = inputs[index + 1];
-
         if (next) {
           next.focus();
         } else {
           document.getElementById('calcBtn').click();
         }
-
       });
-
     });
 
-    // 管理记录
+    document.getElementById('manageBtn').addEventListener('click', () => {
+      const win = window.open('', '_blank', 'width=900,height=600');
+      const html = [];
 
-    document
-      .getElementById('manageBtn')
-      .addEventListener('click', () => {
-
-        const win =
-          window.open(
-            '',
-            '_blank',
-            'width=900,height=600'
-          );
-
-        const html = [];
-
-        html.push(`
+      html.push(`
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>记录管理</title>
-
 <style>
-
 body{
   font-family:-apple-system;
   padding:1rem;
   background:#f2f2f7;
 }
-
 table{
   width:100%;
   border-collapse:collapse;
   background:white;
 }
-
 th,td{
   border:1px solid #ddd;
   padding:0.6rem;
   text-align:center;
 }
-
 th{
   background:#f7f7f7;
 }
-
 button{
   padding:0.4rem 0.8rem;
   border:none;
@@ -719,20 +467,13 @@ button{
   background:#ff3b30;
   color:white;
 }
-
 </style>
 </head>
-
 <body>
-
 <h2>记录管理</h2>
-
 <table>
-
 <thead>
-
 <tr>
-
 <th>机台</th>
 <th>料号</th>
 <th>批号</th>
@@ -741,93 +482,51 @@ button{
 <th>总时长</th>
 <th>下机时间</th>
 <th>操作</th>
-
 </tr>
-
 </thead>
-
 <tbody id="tb"></tbody>
-
 </table>
-
 <script>
-
 const recs = window.opener.records;
-
 function render(){
-
-  const tb =
-    document.getElementById("tb");
-
+  const tb = document.getElementById("tb");
   tb.innerHTML = "";
-
   recs.forEach((r,i)=>{
-
-    const tr =
-      document.createElement("tr");
-
+    const tr = document.createElement("tr");
     Object.values(r).forEach(v=>{
-
-      const td =
-        document.createElement("td");
-
+      const td = document.createElement("td");
       td.textContent = v;
-
       tr.appendChild(td);
-
     });
-
-    const btn =
-      document.createElement("button");
-
+    const btn = document.createElement("button");
     btn.textContent = "删除";
-
     btn.onclick = ()=>{
-
       recs.splice(i,1);
-
       render();
-
     };
-
-    const td =
-      document.createElement("td");
-
+    const td = document.createElement("td");
     td.appendChild(btn);
-
     tr.appendChild(td);
-
     tb.appendChild(tr);
-
   });
-
 }
-
 render();
-
 <\/script>
-
 </body>
 </html>
-`);
+      `);
 
-        win.document.write(html.join(''));
-        win.document.close();
-      });
+      win.document.write(html.join(''));
+      win.document.close();
+    });
 
-    // 导出 Excel
-    // iOS 优先走系统分享面板；其他浏览器走下载
-    // 这个版本不再依赖 FileReader.onload 的异步回调
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      if (!window.records.length) {
+        alert('无可导出记录');
+        return;
+      }
 
-    document
-      .getElementById('exportBtn')
-      .addEventListener('click', async () => {
-
-        if (!window.records.length) {
-          alert('无可导出记录');
-          return;
-        }
-
+      try {
         const fileName = '加工记录.xlsx';
 
         const wb = XLSX.utils.book_new();
@@ -839,48 +538,20 @@ render();
           type: 'array'
         });
 
-        // 先尝试 Web Share API（适合 iOS/Safari 的系统分享）
-        try {
-          const file = new File([wbout], fileName, { type: MIME_XLSX });
-
-          if (
-            window.isSecureContext &&
-            navigator.share &&
-            navigator.canShare &&
-            navigator.canShare({ files: [file] })
-          ) {
-            await navigator.share({
-              files: [file],
-              title: fileName
-            });
-            return;
-          }
-        } catch (err) {
-          // 继续走下面的降级方案
-        }
-
         const blob = new Blob([wbout], { type: MIME_XLSX });
-        const blobUrl = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob);
 
-        // iOS：优先打开预览页，让用户通过“分享/存储到文件”保存
         if (isIOS()) {
-
-          const a = document.createElement('a');
-          a.href = blobUrl;
-          a.target = '_blank';
-          a.rel = 'noopener';
-
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+          const opened = window.open(url, '_blank', 'noopener');
+          if (!opened) {
+            window.location.href = url;
+          }
+          setTimeout(() => URL.revokeObjectURL(url), 60000);
           return;
         }
 
-        // 桌面端/其他浏览器：正常下载
         const a = document.createElement('a');
-        a.href = blobUrl;
+        a.href = url;
         a.download = fileName;
         a.rel = 'noopener';
 
@@ -888,9 +559,11 @@ render();
         a.click();
         document.body.removeChild(a);
 
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-
-      });
-</script>
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      } catch (err) {
+        alert('导出失败：' + (err && err.message ? err.message : String(err)));
+      }
+    });
+  </script>
 </body>
 </html>
