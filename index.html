@@ -31,10 +31,24 @@ SOFTWARE.
   />
   <title>加工时间追踪</title>
   <style>
+    :root {
+      color-scheme: light dark;
+      --bg-light: #f2f2f7;
+      --card-light: rgba(255,255,255,0.72);
+      --border-light: rgba(0,0,0,0.08);
+      --text-light: #1c1c1e;
+      --input-light: rgba(255,255,255,0.82);
+      --bg-dark: #000000;
+      --card-dark: rgba(28,28,30,0.72);
+      --border-dark: rgba(255,255,255,0.08);
+      --text-dark: #ffffff;
+      --input-dark: rgba(44,44,46,0.88);
+      --accent: #0a84ff;
+    }
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     html,
     body {
@@ -44,25 +58,19 @@ SOFTWARE.
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       font-family:
-        system-ui,
         -apple-system,
         BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
+        "SF Pro Display",
+        "PingFang SC",
         sans-serif;
-      font-size: calc(14px + 0.2vw);
-      background:
-        linear-gradient(
-          135deg,
-          #ff5f7e 0%,
-          #ffba00 30%,
-          #34c759 65%,
-          #3a5bdb 100%
-        ) fixed;
-      color: #1c1c1e;
+      background: var(--bg-light);
+      color: var(--text-light);
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      transition:
+        background 0.25s ease,
+        color 0.25s ease;
     }
     body {
       padding:
@@ -70,60 +78,42 @@ SOFTWARE.
         0
         max(20px, env(safe-area-inset-bottom));
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      transform: scale(1.5);
-      transform-origin: center;
-      background-repeat: no-repeat;
-      background-size: 110% 110%;
-      filter: blur(90px);
-      animation:
-        bgMove 16s linear infinite alternate;
-    }
-    @keyframes bgMove {
-      0% {
-        transform:
-          translate(0, 0) scale(1);
-      }
-      33% {
-        transform:
-          translate(-25%, 8%) scale(1.05);
-      }
-      66% {
-        transform:
-          translate(-50%, -6%) scale(1);
-      }
-      100% {
-        transform:
-          translate(-25%, 8%) scale(1.05);
+    @media (prefers-color-scheme: dark) {
+      html,
+      body {
+        background: var(--bg-dark);
+        color: var(--text-dark);
       }
     }
     .container {
-      width: 90%;
+      width: 92%;
       max-width: 1000px;
       margin: 20px 0;
       padding: 2rem;
-      border-radius: 16px;
-      background:
-        rgba(255, 255, 255, 0.25);
-      backdrop-filter:
-        blur(20px) saturate(180%);
-      -webkit-backdrop-filter:
-        blur(20px) saturate(180%);
+      border-radius: 24px;
+      background: var(--card-light);
       border:
-        1px solid rgba(255, 255, 255, 0.4);
+        1px solid var(--border-light);
+      backdrop-filter:
+        blur(30px) saturate(180%);
+      -webkit-backdrop-filter:
+        blur(30px) saturate(180%);
       box-shadow:
-        0 6px 24px rgba(0, 0, 0, 0.12);
-      display: flex;
-      align-items: center;
+        0 8px 32px rgba(0,0,0,0.08);
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+    }
+    @media (prefers-color-scheme: dark) {
+      .container {
+        background: var(--card-dark);
+        border:
+          1px solid var(--border-dark);
+        box-shadow:
+          0 8px 32px rgba(0,0,0,0.45);
+      }
     }
     .card {
-      background: transparent;
-      box-shadow: none;
-      padding: 0;
       width: 100%;
     }
     form {
@@ -135,7 +125,8 @@ SOFTWARE.
     label {
       display: flex;
       flex-direction: column;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
+      font-weight: 500;
     }
     input[type="text"],
     input[type="number"],
@@ -144,31 +135,39 @@ SOFTWARE.
       margin-top: 0.5rem;
       height: 48px;
       min-height: 48px;
-      padding: 0 0.8rem;
+      padding: 0 0.9rem;
+      border-radius: 14px;
       border:
-        1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 12px;
+        1px solid var(--border-light);
       background:
-        rgba(255, 255, 255, 0.3);
-      backdrop-filter:
-        blur(20px) saturate(180%);
-      -webkit-backdrop-filter:
-        blur(20px) saturate(180%);
-      color: #1c1c1e;
+        var(--input-light);
+      color:
+        var(--text-light);
       font-size: 16px;
-      transition:
-        border-color 0.3s,
-        background 0.3s;
       appearance: none;
       -webkit-appearance: none;
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+    }
+    @media (prefers-color-scheme: dark) {
+      input[type="text"],
+      input[type="number"],
+      input[type="datetime-local"] {
+        background:
+          var(--input-dark);
+        border:
+          1px solid var(--border-dark);
+        color:
+          var(--text-dark);
+      }
     }
     input:focus {
       outline: none;
-      border-color: #0a84ff;
-      background:
-        rgba(255, 255, 255, 0.4);
+      border-color: var(--accent);
       box-shadow:
-        0 0 0 3px rgba(10, 132, 255, 0.3);
+        0 0 0 3px rgba(10,132,255,0.25);
     }
     /* iOS datetime 修复 */
     input[type="datetime-local"] {
@@ -203,51 +202,51 @@ SOFTWARE.
       grid-column: 1 / -1;
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1rem;
+      margin-top: 0.5rem;
     }
     button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 120px;
-      padding: 0.7rem 1.2rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      border:
-        1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 12px;
+      flex: 1;
+      min-height: 50px;
+      border-radius: 14px;
+      border: none;
       background:
-        rgba(255, 255, 255, 0.2);
-      backdrop-filter:
-        blur(18px) saturate(160%);
-      -webkit-backdrop-filter:
-        blur(18px) saturate(160%);
-      color: #1c1c1e;
-      box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.2);
+        rgba(10,132,255,0.12);
+      color:
+        inherit;
+      font-size: 0.96rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s;
-      text-align: center;
-      white-space: nowrap;
+      transition:
+        transform 0.15s ease,
+        background 0.25s ease;
     }
     button:hover {
       background:
-        rgba(255, 255, 255, 0.3);
+        rgba(10,132,255,0.18);
     }
     button:active {
-      background:
-        rgba(255, 255, 255, 0.4);
+      transform: scale(0.98);
+    }
+    @media (prefers-color-scheme: dark) {
+      button {
+        background:
+          rgba(10,132,255,0.18);
+      }
+      button:hover {
+        background:
+          rgba(10,132,255,0.26);
+      }
     }
     @media (max-width: 600px) {
       .container {
-        padding: 1.5rem;
+        padding: 1.2rem;
+      }
+      form {
+        grid-template-columns: 1fr;
       }
       .actions {
-        gap: 1rem;
-      }
-      button {
-        min-width: 0;
-        flex: 1;
+        flex-direction: column;
       }
     }
     @supports (-webkit-touch-callout: none) {
@@ -355,6 +354,7 @@ SOFTWARE.
     window.records = [];
     const machineInput =
       document.getElementById('machine');
+    // 添加记录
     document
       .getElementById('calcBtn')
       .addEventListener('click', () => {
@@ -395,12 +395,12 @@ SOFTWARE.
           document.getElementById('backStart').value;
         const bEVal =
           document.getElementById('backEnd').value;
-        let frontMs = 0,
-            backMs = 0,
-            latestEnd = null;
+        let frontMs = 0;
+        let backMs = 0;
+        let latestEnd = null;
         if (fSVal && fEVal) {
-          const fS = new Date(fSVal),
-                fE = new Date(fEVal);
+          const fS = new Date(fSVal);
+          const fE = new Date(fEVal);
           if (fE <= fS) {
             alert(
               '正面结束时间需晚于开始时间'
@@ -408,14 +408,11 @@ SOFTWARE.
             return;
           }
           frontMs = fE - fS;
-          latestEnd =
-            latestEnd
-            ? new Date(Math.max(latestEnd, fE))
-            : fE;
+          latestEnd = fE;
         }
         if (bSVal && bEVal) {
-          const bS = new Date(bSVal),
-                bE = new Date(bEVal);
+          const bS = new Date(bSVal);
+          const bE = new Date(bEVal);
           if (bE <= bS) {
             alert(
               '反面结束时间需晚于开始时间'
@@ -425,12 +422,14 @@ SOFTWARE.
           backMs = bE - bS;
           latestEnd =
             latestEnd
-            ? new Date(Math.max(latestEnd, bE))
+            ? new Date(
+                Math.max(latestEnd, bE)
+              )
             : bE;
         }
         if (!latestEnd) {
           alert(
-            '请至少填写一面加工的开始和结束时间'
+            '请至少填写一面加工时间'
           );
           return;
         }
@@ -442,7 +441,8 @@ SOFTWARE.
           cycleTimeMs * loops;
         const offTime =
           new Date(
-            latestEnd.getTime() + totalTimeMs
+            latestEnd.getTime() +
+            totalTimeMs
           );
         const totalMinutes =
           Math.round(totalTimeMs / 60000);
@@ -459,17 +459,18 @@ SOFTWARE.
           总时长:
             `${hours}h${minutes}m`,
           下机时间:
-            offTime.toLocaleString(),
+            offTime.toLocaleString()
         });
         document
           .getElementById('procForm')
           .reset();
         machineInput.focus();
       });
-    // 回车自动切换输入框
-    const inputs = Array.from(
-      document.querySelectorAll('input')
-    );
+    // 回车切换输入框
+    const inputs =
+      Array.from(
+        document.querySelectorAll('input')
+      );
     inputs.forEach((input, index) => {
       input.addEventListener(
         'keydown',
@@ -488,6 +489,7 @@ SOFTWARE.
         }
       );
     });
+    // 管理记录
     document
       .getElementById('manageBtn')
       .addEventListener('click', () => {
@@ -506,28 +508,29 @@ SOFTWARE.
 <title>记录管理</title>
 <style>
 body{
-  font-family:Arial,sans-serif;
+  font-family:-apple-system;
   padding:1rem;
+  background:#f2f2f7;
 }
 table{
   width:100%;
   border-collapse:collapse;
+  background:white;
 }
 th,td{
-  border:1px solid #ccc;
-  padding:0.5rem;
+  border:1px solid #ddd;
+  padding:0.6rem;
   text-align:center;
 }
 th{
-  background:#f0f0f0;
+  background:#f7f7f7;
 }
 button{
-  padding:0.3rem 0.6rem;
-  background:#E94E77;
-  color:#fff;
+  padding:0.4rem 0.8rem;
   border:none;
-  border-radius:4px;
-  cursor:pointer;
+  border-radius:8px;
+  background:#ff3b30;
+  color:white;
 }
 </style>
 </head>
@@ -550,14 +553,14 @@ button{
 </table>
 <script>
 const recs = window.opener.records;
-function render() {
+function render(){
   const tb =
     document.getElementById("tb");
   tb.innerHTML = "";
-  recs.forEach((r, i) => {
+  recs.forEach((r,i)=>{
     const tr =
       document.createElement("tr");
-    Object.values(r).forEach(v => {
+    Object.values(r).forEach(v=>{
       const td =
         document.createElement("td");
       td.textContent = v;
@@ -566,8 +569,8 @@ function render() {
     const btn =
       document.createElement("button");
     btn.textContent = "删除";
-    btn.onclick = () => {
-      recs.splice(i, 1);
+    btn.onclick = ()=>{
+      recs.splice(i,1);
       render();
     };
     const td =
@@ -585,6 +588,7 @@ render();
         win.document.write(html.join(''));
         win.document.close();
       });
+    // 导出 Excel
     document
       .getElementById('exportBtn')
       .addEventListener('click', () => {
@@ -595,16 +599,38 @@ render();
         const wb =
           XLSX.utils.book_new();
         const ws =
-          XLSX.utils.json_to_sheet(window.records);
+          XLSX.utils.json_to_sheet(
+            window.records
+          );
         XLSX.utils.book_append_sheet(
           wb,
           ws,
           '记录'
         );
-        XLSX.writeFile(
-          wb,
-          '加工记录.xlsx'
-        );
+        const wbout =
+          XLSX.write(wb, {
+            bookType: 'xlsx',
+            type: 'array'
+          });
+        const blob =
+          new Blob(
+            [wbout],
+            {
+              type:
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            }
+          );
+        const url =
+          URL.createObjectURL(blob);
+        const a =
+          document.createElement('a');
+        a.href = url;
+        a.download =
+          '加工记录.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       });
   </script>
 </body>
