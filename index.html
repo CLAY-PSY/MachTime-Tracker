@@ -68,9 +68,6 @@ SOFTWARE.
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      transition:
-        background 0.25s ease,
-        color 0.25s ease;
     }
     body {
       padding:
@@ -178,12 +175,19 @@ SOFTWARE.
     .actions {
       grid-column: 1 / -1;
       display: flex;
+      flex-direction: row;
       justify-content: center;
+      align-items: center;
       gap: 1rem;
       margin-top: 0.5rem;
+      width: 100%;
+    }
+    .actions button {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
     }
     button {
-      flex: 1;
       min-height: 50px;
       border-radius: 14px;
       border: none;
@@ -205,7 +209,7 @@ SOFTWARE.
         grid-template-columns: 1fr;
       }
       .actions {
-        flex-direction: column;
+        flex-direction: row;
       }
     }
   </style>
@@ -454,108 +458,7 @@ SOFTWARE.
         }
       );
     });
-    // 管理记录
-    document
-      .getElementById('manageBtn')
-      .addEventListener('click', () => {
-        const win =
-          window.open(
-            '',
-            '_blank',
-            'width=900,height=600'
-          );
-        const html = [];
-        html.push(`
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<title>记录管理</title>
-<style>
-body{
-  font-family:-apple-system;
-  padding:1rem;
-  background:#f2f2f7;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:white;
-}
-th,td{
-  border:1px solid #ddd;
-  padding:0.6rem;
-  text-align:center;
-}
-th{
-  background:#f7f7f7;
-}
-button{
-  padding:0.4rem 0.8rem;
-  border:none;
-  border-radius:8px;
-  background:#ff3b30;
-  color:white;
-}
-</style>
-</head>
-<body>
-<h2>记录管理</h2>
-<table>
-<thead>
-<tr>
-<th>机台</th>
-<th>料号</th>
-<th>批号</th>
-<th>数量</th>
-<th>循环次数</th>
-<th>总时长</th>
-<th>下机时间</th>
-<th>操作</th>
-</tr>
-</thead>
-<tbody id="tb"></tbody>
-</table>
-<script>
-const recs = window.opener.records;
-function render(){
-  const tb =
-    document.getElementById("tb");
-  tb.innerHTML = "";
-  recs.forEach((r,i)=>{
-    const tr =
-      document.createElement("tr");
-    Object.values(r).forEach(v=>{
-      const td =
-        document.createElement("td");
-      td.textContent = v;
-      tr.appendChild(td);
-    });
-    const btn =
-      document.createElement("button");
-    btn.textContent = "删除";
-    btn.onclick = ()=>{
-      recs.splice(i,1);
-      render();
-    };
-    const td =
-      document.createElement("td");
-    td.appendChild(btn);
-    tr.appendChild(td);
-    tb.appendChild(tr);
-  });
-}
-render();
-<\/script>
-</body>
-</html>
-`);
-        win.document.write(
-          html.join('')
-        );
-        win.document.close();
-      });
-    // 导出 CSV（无依赖）
+    // 导出 CSV
     document
       .getElementById('exportBtn')
       .addEventListener('click', () => {
