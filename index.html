@@ -24,226 +24,198 @@ SOFTWARE.
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta
-  name="viewport"
-  content="
-    width=device-width,
-    initial-scale=1,
-    maximum-scale=1,
-    viewport-fit=cover
-  "
-/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>加工时间追踪</title>
 <style>
-:root {
-  color-scheme: light dark;
-  --bg-light: #f2f2f7;
-  --card-light: rgba(255,255,255,0.78);
-  --border-light: rgba(0,0,0,0.08);
-  --text-light: #1c1c1e;
-  --input-light: rgba(255,255,255,0.9);
-  --bg-dark: #000000;
-  --card-dark: rgba(28,28,30,0.78);
-  --border-dark: rgba(255,255,255,0.08);
-  --text-dark: #ffffff;
-  --input-dark: rgba(44,44,46,0.95);
-  --accent: #0a84ff;
+:root{
+  color-scheme:light dark;
+  --bg-light:#f2f2f7;
+  --card-light:rgba(255,255,255,.82);
+  --border-light:rgba(0,0,0,.16);
+  --text-light:#1c1c1e;
+  --input-light:rgba(255,255,255,.98);
+  --bg-dark:#000;
+  --card-dark:rgba(28,28,30,.82);
+  --border-dark:rgba(255,255,255,.16);
+  --text-dark:#fff;
+  --input-dark:rgba(44,44,46,.98);
+  --accent:#0a84ff;
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 html,
-body {
-  width: 100%;
-  height: 100dvh;
-  overflow: hidden;
+body{
+  width:100%;
+  height:100dvh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   font-family:
     -apple-system,
     BlinkMacSystemFont,
     "SF Pro Display",
     "PingFang SC",
     sans-serif;
-  background: var(--bg-light);
-  color: var(--text-light);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-text-size-adjust: 100%;
-  touch-action: manipulation;
+  background:var(--bg-light);
+  color:var(--text-light);
+  -webkit-text-size-adjust:100%;
+  touch-action:manipulation;
 }
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme:dark){
   html,
-  body {
-    background: var(--bg-dark);
-    color: var(--text-dark);
+  body{
+    background:var(--bg-dark);
+    color:var(--text-dark);
   }
 }
-.container {
-  width: 92%;
-  max-width: 1000px;
-  padding:
-    clamp(14px, 2vw, 32px);
-  border-radius: 24px;
-  background: var(--card-light);
-  border:
-    1px solid var(--border-light);
-  backdrop-filter:
-    blur(30px) saturate(180%);
-  -webkit-backdrop-filter:
-    blur(30px) saturate(180%);
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.08);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.container{
+  width:92%;
+  max-width:1000px;
+  padding:clamp(14px,2vw,30px);
+  border-radius:24px;
+  background:var(--card-light);
+  border:1.5px solid var(--border-light);
+  backdrop-filter:blur(30px) saturate(180%);
+  -webkit-backdrop-filter:blur(30px) saturate(180%);
+  box-shadow:0 10px 40px rgba(0,0,0,.08);
+  overflow:hidden;
 }
-@media (prefers-color-scheme: dark) {
-  .container {
-    background: var(--card-dark);
-    border:
-      1px solid var(--border-dark);
+@media (prefers-color-scheme:dark){
+  .container{
+    background:var(--card-dark);
+    border:1.5px solid var(--border-dark);
   }
 }
-form {
-  width: 100%;
-  display: grid;
+form{
+  width:100%;
+  display:grid;
   grid-template-columns:
-    repeat(auto-fit, minmax(220px, 1fr));
-  gap:
-    clamp(10px, 1vw, 16px);
+    repeat(auto-fit,minmax(220px,1fr));
+  gap:clamp(10px,1vw,16px);
 }
-label {
-  display: flex;
-  flex-direction: column;
-  font-size:
-    clamp(12px, 0.95vw, 15px);
-  font-weight: 500;
+label{
+  display:flex;
+  flex-direction:column;
+  font-size:clamp(12px,.95vw,15px);
+  font-weight:600;
+  letter-spacing:.2px;
 }
 input[type="text"],
 input[type="number"],
-input[type="datetime-local"] {
-  width: 100%;
-  height:
-    clamp(42px, 4.6vw, 48px);
-  min-height:
-    clamp(42px, 4.6vw, 48px);
-  margin-top: 0.45rem;
-  padding: 0 0.8rem;
-  border-radius: 14px;
-  border:
-    1px solid var(--border-light);
-  background:
-    var(--input-light);
-  color:
-    var(--text-light);
-  font-size:
-    clamp(14px, 0.95vw, 16px);
-  appearance: none;
-  -webkit-appearance: none;
+input[type="datetime-local"]{
+  width:100%;
+  height:clamp(44px,4.8vw,50px);
+  margin-top:.45rem;
+  padding:0 .95rem;
+  border-radius:14px;
+  border:2px solid var(--border-light);
+  background:var(--input-light);
+  color:var(--text-light);
+  font-size:clamp(14px,.95vw,16px);
+  font-weight:500;
+  appearance:none;
+  -webkit-appearance:none;
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
 }
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme:dark){
   input[type="text"],
   input[type="number"],
-  input[type="datetime-local"] {
-    background:
-      var(--input-dark);
-    border:
-      1px solid var(--border-dark);
-    color:
-      var(--text-dark);
+  input[type="datetime-local"]{
+    background:var(--input-dark);
+    border:2px solid var(--border-dark);
+    color:var(--text-dark);
   }
 }
-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow:
-    0 0 0 3px rgba(10,132,255,0.25);
+input:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(10,132,255,.18);
 }
-/* iOS datetime 高度统一 */
-input[type="datetime-local"] {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+input[type="datetime-local"]{
+  display:flex;
+  align-items:center;
+  overflow:hidden;
 }
-input[type="datetime-local"]::-webkit-date-and-time-value {
-  height: 100%;
-  display: flex;
-  align-items: center;
+input[type="datetime-local"]::-webkit-date-and-time-value{
+  height:100%;
+  display:flex;
+  align-items:center;
 }
-input[type="datetime-local"]::-webkit-datetime-edit {
-  height: 100%;
-  display: flex;
-  align-items: center;
+input[type="datetime-local"]::-webkit-datetime-edit{
+  height:100%;
+  display:flex;
+  align-items:center;
 }
-/* 按钮 */
-.actions {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: row;
-  gap:
-    clamp(8px, 1vw, 16px);
-  width: 100%;
-  margin-top: 0.3rem;
+.actions{
+  grid-column:1 / -1;
+  display:flex;
+  gap:clamp(8px,1vw,16px);
+  width:100%;
+  margin-top:.4rem;
 }
-.actions button {
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
+.actions button{
+  flex:1;
+  min-width:0;
+  white-space:nowrap;
 }
-button {
-  height:
-    clamp(42px, 4.8vw, 50px);
-  border-radius: 14px;
-  border: none;
-  background:
-    rgba(10,132,255,0.12);
-  color: inherit;
-  font-size:
-    clamp(13px, 0.95vw, 16px);
-  font-weight: 600;
-  cursor: pointer;
+button{
+  height:clamp(44px,4.8vw,52px);
+  border:none;
+  border-radius:14px;
+  background:rgba(10,132,255,.12);
+  color:inherit;
+  font-size:clamp(13px,.95vw,16px);
+  font-weight:650;
+  cursor:pointer;
+  transition:
+    transform .12s ease,
+    background .18s ease;
 }
-button:active {
-  transform: scale(0.98);
+button:hover{
+  background:rgba(10,132,255,.18);
 }
-/* 小屏优化 */
-@media (max-width: 430px) {
-  .container {
-    width: 96vw;
-    padding: 12px;
+button:active{
+  transform:scale(.98);
+}
+@media (max-width:430px){
+  .container{
+    width:96vw;
+    padding:12px;
   }
-  form {
-    gap: 8px;
+  form{
+    gap:8px;
   }
-  label {
-    font-size: 12px;
+  label{
+    font-size:12px;
   }
   input[type="text"],
   input[type="number"],
-  input[type="datetime-local"] {
-    height: 42px;
-    min-height: 42px;
-    font-size: 14px;
+  input[type="datetime-local"]{
+    height:44px;
+    font-size:14px;
   }
-  button {
-    height: 42px;
-    font-size: 13px;
-  }
-}
-/* 超矮屏缩放 */
-@media (max-height: 760px) {
-  .container {
-    transform: scale(0.96);
-    transform-origin: center;
+  button{
+    height:44px;
+    font-size:13px;
   }
 }
-@media (max-height: 700px) {
-  .container {
-    transform: scale(0.92);
+@media (max-height:760px){
+  .container{
+    transform:scale(.96);
+    transform-origin:center;
+  }
+}
+@media (max-height:700px){
+  .container{
+    transform:scale(.92);
   }
 }
 </style>
@@ -253,179 +225,169 @@ button:active {
 <form id="procForm">
 <label>
 机台编号
-<input type="text" id="machine" required />
+<input type="text" id="machine" required>
 </label>
 <label>
 加工料号
-<input type="text" id="partNo" required />
+<input type="text" id="partNo" required>
 </label>
 <label>
 加工批号
-<input type="text" id="batchNo" required />
+<input type="text" id="batchNo" required>
 </label>
 <label>
 加工数量
-<input type="number" id="quantity" min="1" required />
+<input type="number" id="quantity" min="1" required>
 </label>
 <label>
 正面开始
-<input type="datetime-local" id="frontStart" required />
+<input type="datetime-local" id="frontStart" required>
 </label>
 <label>
 正面结束
-<input type="datetime-local" id="frontEnd" required />
+<input type="datetime-local" id="frontEnd" required>
 </label>
 <label>
 反面开始
-<input type="datetime-local" id="backStart" required />
+<input type="datetime-local" id="backStart" required>
 </label>
 <label>
 反面结束
-<input type="datetime-local" id="backEnd" required />
+<input type="datetime-local" id="backEnd" required>
 </label>
 <div class="actions">
-<button
-  type="button"
-  id="calcBtn"
->
+<button type="button" id="calcBtn">
 添加记录
 </button>
-<button
-  type="button"
-  id="manageBtn"
->
+<button type="button" id="manageBtn">
 管理记录
 </button>
-<button
-  type="button"
-  id="exportBtn"
->
+<button type="button" id="exportBtn">
 导出 CSV
 </button>
 </div>
 </form>
 </div>
 <script>
-window.records = [];
-const machineInput =
-  document.getElementById('machine');
-function parseDate(val) {
+window.records=[];
+const machineInput=
+document.getElementById('machine');
+function parseDate(val){
   return new Date(val);
 }
-function formatDuration(ms) {
-  const totalMinutes =
-    Math.round(ms / 60000);
-  const hours =
-    Math.floor(totalMinutes / 60);
-  const minutes =
-    totalMinutes % 60;
+function formatDuration(ms){
+  const totalMinutes=
+  Math.round(ms/60000);
+  const hours=
+  Math.floor(totalMinutes/60);
+  const minutes=
+  totalMinutes%60;
   return `${hours}h${minutes}m`;
 }
-function isIOS() {
+function isIOS(){
   return /iPad|iPhone|iPod/.test(
     navigator.userAgent
   ) ||
   (
-    navigator.platform === 'MacIntel' &&
-    navigator.maxTouchPoints > 1
+    navigator.platform==='MacIntel' &&
+    navigator.maxTouchPoints>1
   );
 }
-// 添加记录
 document
 .getElementById('calcBtn')
-.addEventListener('click', () => {
-const machine =
+.addEventListener('click',()=>{
+const machine=
 machineInput.value.trim();
-const partNo =
+const partNo=
 document
 .getElementById('partNo')
 .value
 .trim();
-const batchNo =
+const batchNo=
 document
 .getElementById('batchNo')
 .value
 .trim();
-const qty =
+const qty=
 Number(
 document
 .getElementById('quantity')
 .value
 );
-if (
+if(
 !machine ||
 !partNo ||
 !batchNo ||
 !qty
-) {
+){
 alert(
 '请填写机台、料号、批号和加工数量'
 );
 return;
 }
-const fSVal =
+const fSVal=
 document.getElementById('frontStart').value;
-const fEVal =
+const fEVal=
 document.getElementById('frontEnd').value;
-const bSVal =
+const bSVal=
 document.getElementById('backStart').value;
-const bEVal =
+const bEVal=
 document.getElementById('backEnd').value;
-let frontMs = 0;
-let backMs = 0;
-let latestEnd = null;
-if (fSVal && fEVal) {
-const fS = parseDate(fSVal);
-const fE = parseDate(fEVal);
-if (fE <= fS) {
+let frontMs=0;
+let backMs=0;
+let latestEnd=null;
+if(fSVal && fEVal){
+const fS=parseDate(fSVal);
+const fE=parseDate(fEVal);
+if(fE<=fS){
 alert(
 '正面结束时间需晚于开始时间'
 );
 return;
 }
-frontMs = fE - fS;
-latestEnd = fE;
+frontMs=fE-fS;
+latestEnd=fE;
 }
-if (bSVal && bEVal) {
-const bS = parseDate(bSVal);
-const bE = parseDate(bEVal);
-if (bE <= bS) {
+if(bSVal && bEVal){
+const bS=parseDate(bSVal);
+const bE=parseDate(bEVal);
+if(bE<=bS){
 alert(
 '反面结束时间需晚于开始时间'
 );
 return;
 }
-backMs = bE - bS;
-latestEnd =
+backMs=bE-bS;
+latestEnd=
 latestEnd
 ? new Date(
-Math.max(latestEnd, bE)
+Math.max(latestEnd,bE)
 )
 : bE;
 }
-if (!latestEnd) {
+if(!latestEnd){
 alert(
 '请至少填写一面加工时间'
 );
 return;
 }
-const cycleTimeMs =
-frontMs + backMs;
-const loops =
-Math.ceil(qty / 2);
-const totalTimeMs =
-cycleTimeMs * loops;
-const offTime =
+const cycleTimeMs=
+frontMs+backMs;
+const loops=
+Math.ceil(qty/2);
+const totalTimeMs=
+cycleTimeMs*loops;
+const offTime=
 new Date(
-latestEnd.getTime() +
+latestEnd.getTime()+
 totalTimeMs
 );
 window.records.push({
-机台: machine,
-料号: partNo,
-批号: batchNo,
-数量: qty,
-循环次数: loops,
+机台:machine,
+料号:partNo,
+批号:batchNo,
+数量:qty,
+循环次数:loops,
 总时长:
 formatDuration(totalTimeMs),
 下机时间:
@@ -436,21 +398,43 @@ document
 .reset();
 machineInput.focus();
 });
-// 管理记录
+const inputs=
+Array.from(
+document.querySelectorAll('input')
+);
+inputs.forEach((input,index)=>{
+input.addEventListener(
+'keydown',
+(e)=>{
+if(e.key!=='Enter') return;
+e.preventDefault();
+const next=
+inputs[index+1];
+if(next){
+next.focus();
+}
+else{
+document
+.getElementById('calcBtn')
+.click();
+}
+}
+);
+});
 document
 .getElementById('manageBtn')
-.addEventListener('click', () => {
-const win =
+.addEventListener('click',()=>{
+const win=
 window.open(
 '',
 '_blank',
 'width=900,height=600'
 );
-if (!win) {
+if(!win){
 alert('浏览器拦截了弹窗');
 return;
 }
-const html = [];
+const html=[];
 html.push(`
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -470,18 +454,19 @@ background:white;
 }
 th,td{
 border:1px solid #ddd;
-padding:0.6rem;
+padding:.6rem;
 text-align:center;
 }
 th{
 background:#f7f7f7;
 }
 button{
-padding:0.4rem 0.8rem;
+padding:.4rem .8rem;
 border:none;
 border-radius:8px;
 background:#ff3b30;
 color:white;
+cursor:pointer;
 }
 </style>
 </head>
@@ -503,29 +488,29 @@ color:white;
 <tbody id="tb"></tbody>
 </table>
 <script>
-const recs =
+const recs=
 window.opener.records;
 function render(){
-const tb =
+const tb=
 document.getElementById("tb");
-tb.innerHTML = "";
+tb.innerHTML="";
 recs.forEach((r,i)=>{
-const tr =
+const tr=
 document.createElement("tr");
 Object.values(r).forEach(v=>{
-const td =
+const td=
 document.createElement("td");
-td.textContent = v;
+td.textContent=v;
 tr.appendChild(td);
 });
-const btn =
+const btn=
 document.createElement("button");
-btn.textContent = "删除";
-btn.onclick = ()=>{
+btn.textContent="删除";
+btn.onclick=()=>{
 recs.splice(i,1);
 render();
 };
-const td =
+const td=
 document.createElement("td");
 td.appendChild(btn);
 tr.appendChild(td);
@@ -542,16 +527,15 @@ html.join('')
 );
 win.document.close();
 });
-// 导出 CSV
 document
 .getElementById('exportBtn')
-.addEventListener('click', () => {
-if (!window.records.length) {
+.addEventListener('click',()=>{
+if(!window.records.length){
 alert('无可导出记录');
 return;
 }
-try {
-const headers = [
+try{
+const headers=[
 '机台',
 '料号',
 '批号',
@@ -560,8 +544,8 @@ const headers = [
 '总时长',
 '下机时间'
 ];
-const rows =
-window.records.map(r => [
+const rows=
+window.records.map(r=>[
 r['机台'],
 r['料号'],
 r['批号'],
@@ -570,18 +554,18 @@ r['循环次数'],
 r['总时长'],
 r['下机时间']
 ]);
-let csv =
-'\uFEFF' +
-headers.join(',') + '\n';
-rows.forEach(row => {
-csv += row
-.map(v =>
-`"${String(v).replace(/"/g, '""')}"`
+let csv=
+'\uFEFF'+
+headers.join(',')+'\n';
+rows.forEach(row=>{
+csv+=row
+.map(v=>
+`"${String(v).replace(/"/g,'""')}"`
 )
 .join(',')
-+ '\n';
++'\n';
 });
-const blob =
+const blob=
 new Blob(
 [csv],
 {
@@ -589,30 +573,30 @@ type:
 'text/csv;charset=utf-8;'
 }
 );
-const url =
+const url=
 URL.createObjectURL(blob);
-if (isIOS()) {
+if(isIOS()){
 window.open(
 url,
 '_blank'
 );
 return;
 }
-const link =
+const link=
 document.createElement('a');
-link.href = url;
-link.download =
+link.href=url;
+link.download=
 '加工记录.csv';
 document.body.appendChild(link);
 link.click();
 document.body.removeChild(link);
-setTimeout(() => {
+setTimeout(()=>{
 URL.revokeObjectURL(url);
-}, 1000);
+},1000);
 }
-catch (err) {
+catch(err){
 alert(
-'导出失败：' +
+'导出失败：'+
 err.message
 );
 console.error(err);
