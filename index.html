@@ -34,15 +34,15 @@ SOFTWARE.
     :root {
       color-scheme: light dark;
       --bg-light: #f2f2f7;
-      --card-light: rgba(255,255,255,0.72);
+      --card-light: rgba(255,255,255,0.78);
       --border-light: rgba(0,0,0,0.08);
       --text-light: #1c1c1e;
-      --input-light: rgba(255,255,255,0.82);
+      --input-light: rgba(255,255,255,0.9);
       --bg-dark: #000000;
-      --card-dark: rgba(28,28,30,0.72);
+      --card-dark: rgba(28,28,30,0.78);
       --border-dark: rgba(255,255,255,0.08);
       --text-dark: #ffffff;
-      --input-dark: rgba(44,44,46,0.88);
+      --input-dark: rgba(44,44,46,0.95);
       --accent: #0a84ff;
     }
     * {
@@ -588,7 +588,7 @@ render();
         win.document.write(html.join(''));
         win.document.close();
       });
-    // 导出 Excel
+    // 导出 Excel（iOS Safari 修复版）
     document
       .getElementById('exportBtn')
       .addEventListener('click', () => {
@@ -620,17 +620,21 @@ render();
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             }
           );
-        const url =
-          URL.createObjectURL(blob);
-        const a =
-          document.createElement('a');
-        a.href = url;
-        a.download =
-          '加工记录.xlsx';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        // iOS Safari 下载修复
+        const reader =
+          new FileReader();
+        reader.onload = function(e) {
+          const link =
+            document.createElement('a');
+          link.href =
+            e.target.result;
+          link.download =
+            '加工记录.xlsx';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+        reader.readAsDataURL(blob);
       });
   </script>
 </body>
